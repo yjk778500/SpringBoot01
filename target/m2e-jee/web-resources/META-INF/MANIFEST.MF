@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: Yk
+Build-Jdk: 11.0.2
+Implementation-Title: SpringBoot01
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: SpringBoot01
+Implementation-Vendor: Pivotal Software, Inc.
+Implementation-URL: http://projects.spring.io/spring-boot/SpringBoot01/
+Created-By: Maven Integration for Eclipse
+

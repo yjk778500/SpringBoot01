@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+        <mapper namespace="com.yjk.dao.UserMapper">
+        
+        <select id="getlist" resultMap="usermap" parameterType="Map">
+        SELECT a.*,b.zname FROM userwan AS a,zu AS b WHERE a.zu_id=b.zid
+        <if test="user_name !=null and user_name !=''" >
+        and user_name like CONCAT('%',#{user_name},'%')
+        </if>
+        <if test="zu_id !=null and zu_id !=0">
+        and zu_id=#{zu_id}
+        </if>
+        </select>
+        <resultMap id="usermap" type="User">
+        <id property="id" column="id"/>
+        <result property="user_name" column="user_name"/>
+        <result property="user_address" column="user_address"/>
+     	<result property="user_tel" column="user_tel"/>   
+        <result property="zu_id" column="zu_id"/>
+        
+        <association property="wana" javaType="Wan" >
+        <result property="zname" column="zname"/>
+        </association>
+        
+        </resultMap>
+        
+          <!-- 删除玩家 -->
+     <delete id="deluser" parameterType="Integer">
+     	DELETE FROM `zuan`.`userwan` WHERE `id` =#{id};
+     </delete>
+     
+     <!-- 添加玩家 -->
+     <insert id="adduser" parameterType="User">
+     	INSERT INTO `zuan`.`userwan`
+            (
+             `user_name`,
+             `user_address`,
+             `user_tel`,
+             `zu_id`)
+VALUES (
+        #{user_name},
+        #{user_address},
+        #{user_tel},
+        #{zu_id});
+     
+     </insert>
+     <!-- 修改玩家信息 -->
+     <update id="updateuser" parameterType="User">
+     	UPDATE `zuan`.`userwan` SET `user_name` =#{user_name},`user_address` =#{user_address},`user_tel` =#{user_tel},`zu_id` =#{zu_id}  WHERE `id` =#{id};
+     </update>
+     <!-- 根据id查询玩家信息 -->
+     <select id="getid" resultType="User" parameterType="Integer">
+     SELECT * FROM userwan where id=#{id}
+     </select>
+     
+    <!--  查询所有大区回显下拉框 -->
+     <select id="getWan" resultType="Wan">
+     SELECT * FROM zu
+     </select>
+        
+        </mapper>
